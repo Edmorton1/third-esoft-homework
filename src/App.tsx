@@ -1,34 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import './App.css'
+import Counter from './components/Counter';
+import Hello from './components/Hello';
+import Numbers from './components/Numbers';
+import Input from './components/Input';
+import Todo from './components/Todo';
+import Memo from './components/Memo';
+
+export type ThemeContextType = [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+
+export const ThemeContext = createContext<ThemeContextType | null>(null)
 
 function App() {
+  const [theme, setTheme] = useState(false)
+  // dark - true
+  // light - false
   const [count, setCount] = useState(0)
+  const themeValue = useMemo(() => [theme, setTheme] as ThemeContextType, [theme])
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme')
+    setTheme(theme === "dark")
+
+    const body = document.getElementsByTagName('body')[0]
+    body.classList.remove("dark")
+    if (theme === 'dark') {
+      body.classList.add("dark")
+    } else {
+      body.classList.remove("dark")
+    }
+  }, [theme])
+
+  const clickHello = useCallback(() => console.log('hello'), [])
+  const increment = useCallback(() => setCount(prev => ++prev), [])
+  const decrement = useCallback(() => setCount(prev => --prev), [])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <ThemeContext.Provider value={themeValue}>
+      <main>
+        <Counter count={count} increment={increment} decrement={decrement}/>
+        <Hello clickHello={clickHello} />
+        <br />
+        <Numbers />
+        <br />
+        <Input/>
+        <br />
+        <Todo />
+        <br />
+        <Memo />
+      </main>
+    </ThemeContext.Provider>
   )
 }
 
