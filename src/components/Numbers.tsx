@@ -1,10 +1,10 @@
 import { memo, useMemo, useState } from "react"
 
 const Numbers = memo(() => {
-  console.log('numbers render')
+  // console.log('numbers render')
   
   function getnerateArr() {
-    console.log("Новое вычисление")
+    // console.log("Новое вычисление")
     const len = Math.floor(Math.random() * 100)
     const arr = (Array.from({length: len}, (_, i) => i)).reduce((acc, value) => {
       return acc + value

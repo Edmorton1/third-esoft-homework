@@ -17,6 +17,7 @@ const Memo = () => {
   const [child, setChild] = useState(false)
   const [parent, setParent] = useState(false)
 
+  // Логи здесь оставил, потому что в задании написано, что надо показать пример
   // ПЕРВЫЙ РЕБЁНОК С memo ВТОРОЙ БЕЗ
 
   // Если без useCallback сделать рендер, который не влияеет на детей,
@@ -40,4 +41,4 @@ const Memo = () => {
   )
 }
 
-export default Memo
+export default memo(Memo)

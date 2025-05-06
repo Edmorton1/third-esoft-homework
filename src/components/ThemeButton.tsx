@@ -2,7 +2,7 @@ import { memo, useContext } from "react"
 import { ThemeContext, ThemeContextType } from "../App"
 
 const ThemeButton = memo(() => {
-  console.log('theme render')
+  // console.log('theme render')
   if (ThemeContext === null) {
     throw Error('sasaaass')
   }
@@ -13,7 +13,7 @@ const ThemeButton = memo(() => {
     setTheme(!theme)
     
     localStorage.setItem('theme', !theme === true ? 'dark' : 'light')
-    console.log(!theme)
+    // console.log(!theme)
   }
 
   return <button onClick={handleClick}>{theme ? 'Светлую' : 'Тёмную'}</button>

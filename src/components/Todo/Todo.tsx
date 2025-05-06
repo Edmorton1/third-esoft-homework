@@ -1,8 +1,9 @@
 import { memo, useReducer, useState } from "react"
-import useDebounce from "../hooks/useDebounse";
+import useDebounce from "../../hooks/useDebounse";
+import Todos from "./Todos";
 
-type State = { id: number, text: string, status: 'none' | 'completed' };
-type Action = { type: 'add', text: string } | { type: 'delete' | 'toggle', id: number };
+export type State = { id: number, text: string, status: 'none' | 'completed' };
+export type Action = { type: 'add', text: string } | { type: 'delete' | 'toggle', id: number };
 
 function reduser(state: State[], action: Action): State[] {
   switch (action.type) {
@@ -13,25 +14,13 @@ function reduser(state: State[], action: Action): State[] {
     case 'toggle': {
       const todo = state.find(e => e.id === action.id)!
       const updatedTodo: State = {...todo, status: todo.status == 'none' ? 'completed' : 'none'}
-      console.log(updatedTodo)
+      // console.log(updatedTodo)
       return state.map(e => e.id == updatedTodo.id ? updatedTodo : e)
     }
     default:
       throw new Error()
   }
 }
-
-const Todos = memo(({debValue, state, dispatch}: {state: State[], debValue: string, dispatch: React.Dispatch<Action>}) => {
-  console.log('Todos render')
-  return state.filter(e => e.text.includes(debValue)).map(e => 
-    <div key={e.id}>
-      <p>Задача: {e.text}</p>
-      <p>Статус: {e.status == 'completed' ? 'выполнено' : 'не выполнено'}</p>
-      <button onClick={() => dispatch({type: "toggle", id: e.id})}>Изменить статус</button>
-      <button onClick={() => dispatch({type: "delete", id: e.id})}>Удалить</button>
-    </div>
-  )
-})
 
 const Todo = memo(() => {
   const [text, setText] = useState('')

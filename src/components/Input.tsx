@@ -4,7 +4,7 @@ import { memo, useRef, useState } from "react"
 const Input = memo(() => {
   const [state, setState] = useState<string | null>(null)
   const ref = useRef<HTMLInputElement | null>(null)
-  console.log(ref.current)
+  // console.log(ref.current)
 
   const handleClick = () => setState(ref.current!.value)
 

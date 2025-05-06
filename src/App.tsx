@@ -1,15 +1,14 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import './App.css'
 import Counter from './components/Counter';
-import Hello from './components/Hello';
 import Numbers from './components/Numbers';
 import Input from './components/Input';
-import Todo from './components/Todo';
+import Todo from './components/Todo/Todo';
 import Memo from './components/Memo';
 
 export type ThemeContextType = [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 
-export const ThemeContext = createContext<ThemeContextType | null>(null)
+export const ThemeContext = createContext<ThemeContextType>([false, () => {}])
 
 function App() {
   const [theme, setTheme] = useState(false)
@@ -31,7 +30,6 @@ function App() {
     }
   }, [theme])
 
-  const clickHello = useCallback(() => console.log('hello'), [])
   const increment = useCallback(() => setCount(prev => ++prev), [])
   const decrement = useCallback(() => setCount(prev => --prev), [])
 
@@ -39,7 +37,6 @@ function App() {
     <ThemeContext.Provider value={themeValue}>
       <main>
         <Counter count={count} increment={increment} decrement={decrement}/>
-        <Hello clickHello={clickHello} />
         <br />
         <Numbers />
         <br />
