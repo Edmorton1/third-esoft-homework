@@ -1,7 +1,7 @@
 import { memo } from "react"
 
 const Counter = memo(({increment, decrement, count}: {increment: () => void, decrement: () => void, count: number}) => {
-  // console.log('COUNTER render')
+  console.log('COUNTER render')
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { memo, useCallback, useState } from "react"
+import ThemeButton from "./ThemeButton"
 
 const First = memo(({viewCallback}: {viewCallback: () => void}) => {
   console.log('ПЕРВЫЙ РЕБЁНОК РЕНДЕР')
@@ -37,6 +38,7 @@ const Memo = () => {
       <button onClick={() => setChild(!child)}>Сделать рендер влияющий на детей</button>
       <First viewCallback={viewCallback} />
       <Second viewCallback={viewCallback}/>
+      <ThemeButton />
     </>
   )
 }

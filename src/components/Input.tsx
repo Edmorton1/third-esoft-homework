@@ -6,13 +6,15 @@ const Input = memo(() => {
   const ref = useRef<HTMLInputElement | null>(null)
   // console.log(ref.current)
 
-  const handleClick = () => setState(ref.current!.value)
+  const handleClick = () => {setState(ref.current!.value); ref.current?.focus()}
+  // const showPrev = () => console.log(ref.current)
 
   return (
     <>
       <input ref={ref} type="text" />
       <p>{state}</p>
       <button onClick={handleClick}>Изменить</button>
+      {/* <p>Предыдущ: </p> */}
     </>
   )
 })
